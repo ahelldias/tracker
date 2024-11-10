@@ -69,8 +69,8 @@ async function submitData() {
 
         if (response.ok) {
             alert('Dados enviados com sucesso!');
-            fetchData(); // Atualiza a lista após enviar os dados
-            window.location.href = "hist.html"; // Redireciona para a página inicial
+            fetchData(); 
+            window.location.href = "hist.html"; 
         } else {
             const errorText = await response.text();
             console.error('Erro ao enviar os dados:', errorText);
