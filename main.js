@@ -3,7 +3,7 @@ const mockapiUrl = 'https://672e4d71229a881691efaa8c.mockapi.io/trck/registros';
 
 // Botão para adicionar novo registro
 document.getElementById("novo").addEventListener("click", function() { 
-    window.location.href = "reg.html";
+    window.location.href = "hist.html";
 });
 
 console.log('mockapiUrl:', mockapiUrl); // Verifica se a URL está definida corretamente
