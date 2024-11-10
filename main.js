@@ -3,7 +3,7 @@ const mockapiUrl = 'https://672e4d71229a881691efaa8c.mockapi.io/trck/registros';
 
 // Botão para adicionar novo registro
 document.getElementById("novo").addEventListener("click", function() { 
-    window.location.href = "hist.html";
+    window.location.href = "reg.html";
 });
 
 console.log('mockapiUrl:', mockapiUrl); // Verifica se a URL está definida corretamente
@@ -70,7 +70,7 @@ async function submitData() {
         if (response.ok) {
             alert('Dados enviados com sucesso!');
             fetchData(); // Atualiza a lista após enviar os dados
-            window.location.href = "index.html"; // Redireciona para a página inicial
+            window.location.href = "hist.html"; // Redireciona para a página inicial
         } else {
             const errorText = await response.text();
             console.error('Erro ao enviar os dados:', errorText);
