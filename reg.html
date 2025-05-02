@@ -27,14 +27,22 @@
         <div class="gap-1 regt">
             <h2 class="mt-4 mb-4">Novo registro!</h2>
             <div class="input-group mb-4">
-                <span class="input-group-text" id="inputGroup-sizing-default">Data</span>
+                <span class="input-group-text">Data</span>
                 <input type="date" class="form-control" id="dateInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
             </div>
-            <div class="input-group">
-                <span class="input-group-text" id="inputGroup-sizing-default">Horas</span>
+            <div class="input-group mb-4">
+                <span class="input-group-text" >Horas</span>
                 <input type="number" class="form-control" id="hoursInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
             </div>
-            <div class="form-container">
+            <div class="input-group mb-4">
+                <label class="input-group-text" for="rainInput">Choveu?</label>
+                <select class="form-select" id="rainInput" required>
+                    <option value="" disabled selected>Selecione:</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
+            <div class="input-group">
                 <select class="form-select form-select-sm" id="weatherSelect" aria-label="Select example" required>
                     <option value="" disabled selected>Selecione o clima:</option>
                     <option value="Ensolarado">Ensolarado</option>
@@ -42,8 +50,8 @@
                     <option value="Chuvoso">Chuvoso</option>
                     <option value="Outro">Outro</option>
                 </select>
-                <button type="submit" class="btn btn-primary btn-m btn-center mt-3" id="submitButton" style="width: 200px;" onclick="submitData()">Enviar</button>
             </div>
+            <button type="submit" class="btn btn-primary btn-m btn-center mt-3" id="submitButton" style="width: 200px;" onclick="submitData()">Enviar</button>
         </div>
     </div>
 
