@@ -192,3 +192,8 @@ setInterval(() => {
     checkConnection();
     checkESP32();
 }, 5000);
+
+fetch("https://ahelldias.github.io/tracker/")
+    .then(response => response.text())
+    .then(data => console.log("Resposta do ESP32:", data)) 
+    .catch(error => console.error("Erro na requisição:", error));
