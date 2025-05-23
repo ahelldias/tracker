@@ -147,25 +147,34 @@ async function submitData() {
 // Carrega os dados assim que o script é executado
 fetchData(); 
 setInterval(fetchData, 30000); 
+
+
 async function checkESP32() {
-    const apiUrl = "https://ahelldias.github.io/tracker/"; // URL do seu site
+    const apiUrl = "http://IP_DO_ESP32/status"; // Substitua pelo IP do seu ESP32
 
     try {
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error(`Erro no servidor: ${response.status}`);
-        const data = await response.text(); // Se o servidor retornar JSON, troque para response.json()
+        if (!response.ok) throw new Error(`Erro no servidor ESP32: ${response.status}`);
+        const data = await response.text(); // Se o ESP32 retornar JSON, troque para response.json()
+
+        const statusElement = document.getElementById("status");
+        if (!statusElement) throw new Error("Elemento 'status' não encontrado no HTML!");
 
         if (data === "Conectado") {
-            document.getElementById("status").textContent = "ESP32 está online! ✅";
-            document.getElementById("status").style.color = "green";
+            statusElement.textContent = "ESP32 está online! ✅";
+            statusElement.style.color = "green";
         } else {
-            document.getElementById("status").textContent = "ESP32 está offline ❌";
-            document.getElementById("status").style.color = "red";
+            statusElement.textContent = "ESP32 está offline ❌";
+            statusElement.style.color = "red";
         }
     } catch (error) {
         console.error("Erro ao comunicar com ESP32:", error);
-        document.getElementById("status").textContent = "Erro na comunicação ⚠️";
-        document.getElementById("status").style.color = "orange";
+
+        const statusElement = document.getElementById("status");
+        if (statusElement) {
+            statusElement.textContent = "Erro na comunicação ⚠️";
+            statusElement.style.color = "orange";
+        }
     }
 }
 
