@@ -147,53 +147,27 @@ async function submitData() {
 // Carrega os dados assim que o script é executado
 fetchData(); 
 setInterval(fetchData, 30000); 
-
-async function checkConnection() {
-    const apiUrl = "https://672e4d71229a881691efaa8c.mockapi.io/trck/status"; 
+async function checkESP32() {
+    const apiUrl = "https://ahelldias.github.io/tracker/"; // URL do seu site
 
     try {
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Erro no servidor");
-        const data = await response.json();
-
-        if (data.length > 0 && data[0].status === "Conectado") {
-            document.getElementById("connectionStatus").textContent = "Conectado ✅";
-            document.getElementById("connectionStatus").style.color = "green";
-        } else {
-            document.getElementById("connectionStatus").textContent = "Desconectado ❌";
-            document.getElementById("connectionStatus").style.color = "red";
-        }
-    } catch (error) {
-        console.error("Erro ao verificar conexão:", error);
-        document.getElementById("connectionStatus").textContent = "Erro na conexão ⚠️";
-        document.getElementById("connectionStatus").style.color = "orange";
-    }
-}
-
-async function checkESP32() {
-    try {
-        const response = await fetch("http://IP_DO_ESP32/status");
-        if (!response.ok) throw new Error("ESP32 não respondeu");
-        const data = await response.text();
+        if (!response.ok) throw new Error(`Erro no servidor: ${response.status}`);
+        const data = await response.text(); // Se o servidor retornar JSON, troque para response.json()
 
         if (data === "Conectado") {
             document.getElementById("status").textContent = "ESP32 está online! ✅";
+            document.getElementById("status").style.color = "green";
         } else {
             document.getElementById("status").textContent = "ESP32 está offline ❌";
+            document.getElementById("status").style.color = "red";
         }
     } catch (error) {
         console.error("Erro ao comunicar com ESP32:", error);
         document.getElementById("status").textContent = "Erro na comunicação ⚠️";
+        document.getElementById("status").style.color = "orange";
     }
 }
 
-// Faz todas as verificações a cada 5 segundos
-setInterval(() => {
-    checkConnection();
-    checkESP32();
-}, 5000);
-
-fetch("https://ahelldias.github.io/tracker/")
-    .then(response => response.text())
-    .then(data => console.log("Resposta do ESP32:", data)) 
-    .catch(error => console.error("Erro na requisição:", error));
+// Faz a verificação a cada 5 segundos
+setInterval(checkESP32, 5000);
