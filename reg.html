@@ -9,19 +9,21 @@
 </head>
 <body class="fundo">
     <nav class="navbar navbar-expand-lg navbar-custom"> 
-        <div class="container-fluid"> 
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"> 
-            <span class="navbar-toggler-icon"></span> 
-          </button> 
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> 
-            <div class="navbar-nav gap-3"> 
-              <a class="nav-link pt-2" aria-current="page" href="./index.html" style="font-size: 30px;"><b>Home</b></a> 
-              <a class="nav-link pt-3" href="./hist.html" style="font-size: 20px;">Histórico</a> 
-            </div> 
-         </div> 
+    <div class="container-fluid"> 
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"> 
+        <span class="navbar-toggler-icon"></span> 
+      </button> 
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> 
+        <div class="navbar-nav gap-3"> 
+          <a class="nav-link pt-2" aria-current="page" href="./index.html" style="font-size: 30px;"><b>Home</b></a> 
+          <a class="nav-link pt-3" href="./hist.html" style="font-size: 20px;">Histórico</a> 
+          <a class="nav-link pt-3" href="./grafico.html" style="font-size: 20px;">Gráfico</a> 
         </div> 
-        <img src="./logo1.jpeg" style="height: 90px; display: flex; justify-content: end;" alt=""> 
-    </nav>
+     </div> 
+    </div> 
+    <img src="./logo1.jpeg" style="height: 100px; display: flex; justify-content: end;" alt=""> 
+  </nav>
+
 
     <div class="container-fluid center-content">
         <div class="gap-1 regt">
@@ -38,7 +40,8 @@
                 <label class="input-group-text" for="rainInput">Choveu?</label>
                 <select class="form-select" id="rainInput" required>
                     <option value="" disabled selected>Selecione:</option>
-                    <option value="Sim">Sim</option>
+                    <option value="leve">sim, Levemente</option>
+                    <option value="intensa">sim, Intensamente</option>
                     <option value="Não">Não</option>
                 </select>
             </div>

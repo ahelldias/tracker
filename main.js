@@ -26,14 +26,12 @@ function getUserLocation() {
 
 // Obtém dados do clima usando OpenWeather
 async function getWeather(latitude, longitude) {
-    const apiKey = "c0891ee6f0e1a6064136e7add57a94d3"; // Coloque sua chave da OpenWeather
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
     try {
         const response = await fetch(url);
         const data = await response.json();
         
-        // Verifica se os dados foram recebidos corretamente
         console.log("Dados do clima recebidos:", data);
         
         if (!data.main || !data.weather) {
@@ -42,7 +40,6 @@ async function getWeather(latitude, longitude) {
             return;
         }
 
-        // Atualiza os elementos no HTML com os dados corretos
         document.getElementById("weatherDisplay").textContent = `Temperatura: ${data.main.temp}°C`;
         document.getElementById("weatherDetails").textContent = `Condição: ${data.weather[0].description}, Umidade: ${data.main.humidity}%`;
     } catch (error) {
@@ -61,7 +58,6 @@ document.getElementById("novo").addEventListener("click", function() {
 });
 
 console.log('mockapiUrl:', mockapiUrl);
-
 
 async function fetchData() {
     console.log('fetchData chamado');
@@ -94,10 +90,8 @@ async function fetchData() {
     }
 }
 
-// Só chama fetchData() se estiver na página certa
 document.addEventListener("DOMContentLoaded", fetchData);
 
-// Função para enviar dados
 async function submitData() {
     const weatherSelect = document.getElementById('weatherSelect');
     const dateInput = document.getElementById('dateInput');
@@ -124,7 +118,7 @@ async function submitData() {
     };
 
     try {
-        const response = await fetch('https://672e4d71229a881691efaa8c.mockapi.io/trck/registros', {
+        const response = await fetch(mockapiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -144,39 +138,107 @@ async function submitData() {
     }
 }
 
-// Carrega os dados assim que o script é executado
 fetchData(); 
 setInterval(fetchData, 30000); 
 
+const weatherCtx = document.getElementById('weatherChart').getContext('2d');
+let weatherChart = new Chart(weatherCtx, {
+    type: 'pie',
+    data: {
+        labels: [],
+        datasets: [{
+            label: "Ocorrência dos Climas",
+            data: [],
+            backgroundColor: ["blue", "grey", "yellow", "green"]
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
 
-async function checkESP32() {
-    const apiUrl = "http://IP_DO_ESP32/status"; // Substitua pelo IP do seu ESP32
-
+async function fetchWeatherData() {
     try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error(`Erro no servidor ESP32: ${response.status}`);
-        const data = await response.text(); // Se o ESP32 retornar JSON, troque para response.json()
+        const response = await fetch(mockapiUrl);
+        const data = await response.json();
 
-        const statusElement = document.getElementById("status");
-        if (!statusElement) throw new Error("Elemento 'status' não encontrado no HTML!");
+        if (data.length > 0) {
+            let climaCounts = {};
 
-        if (data === "Conectado") {
-            statusElement.textContent = "ESP32 está online! ✅";
-            statusElement.style.color = "green";
-        } else {
-            statusElement.textContent = "ESP32 está offline ❌";
-            statusElement.style.color = "red";
+            // Conta a ocorrência de cada clima
+            data.forEach(item => {
+                let clima = item.clima;
+                climaCounts[clima] = (climaCounts[clima] || 0) + 1;
+            });
+
+            // Atualiza os dados do gráfico
+            weatherChart.data.labels = Object.keys(climaCounts);
+            weatherChart.data.datasets[0].data = Object.values(climaCounts);
+            weatherChart.update();
         }
     } catch (error) {
-        console.error("Erro ao comunicar com ESP32:", error);
-
-        const statusElement = document.getElementById("status");
-        if (statusElement) {
-            statusElement.textContent = "Erro na comunicação ⚠️";
-            statusElement.style.color = "orange";
-        }
+        console.error("Erro ao buscar dados para o gráfico de clima:", error);
     }
 }
 
-// Faz a verificação a cada 5 segundos
-setInterval(checkESP32, 5000);
+// Atualiza o gráfico ao carregar a página e a cada 10 segundos
+document.addEventListener("DOMContentLoaded", fetchWeatherData);
+setInterval(fetchWeatherData, 10000);
+
+// Configuração inicial do gráfico de energia
+const energyCtx = document.getElementById('energyChart').getContext('2d');
+let energyChart = new Chart(energyCtx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: "Energia Gerada (Wh)",
+            data: [],
+            borderColor: "blue",
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+    }
+});
+
+async function fetchDataAndUpdateChart() {
+    try {
+        const response = await fetch(mockapiUrl);
+        const data = await response.json();
+        const power = 3;
+        const time = 8;
+
+        if (data.length > 0) {
+            energyChart.data.labels = [];
+            energyChart.data.datasets[0].data = [];
+
+            data.forEach(item => {
+                let chuva = item.chuva.toLowerCase();
+                let fatorDeChuva = 0;
+
+                if (chuva === "leve") {
+                    fatorDeChuva = 0.2;
+                } else if (chuva === "intensa") {
+                    fatorDeChuva = 0.5;
+                } else if (chuva === "não") {
+                    fatorDeChuva = 0;
+                }
+
+                let energia = power * time * (1 - fatorDeChuva);
+
+                energyChart.data.labels.push(item.data);
+                energyChart.data.datasets[0].data.push(energia);
+            });
+
+            energyChart.update();
+        }
+    } catch (error) {
+        console.error("Erro ao buscar dados para o gráfico:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", fetchDataAndUpdateChart);
+setInterval(fetchDataAndUpdateChart, 10000);

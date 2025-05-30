@@ -18,16 +18,17 @@
         <div class="navbar-nav gap-3"> 
           <a class="nav-link pt-2" aria-current="page" href="./index.html" style="font-size: 30px;"><b>Home</b></a> 
           <a class="nav-link pt-3" href="./hist.html" style="font-size: 20px;">Histórico</a> 
+          <a class="nav-link pt-3" href="./grafico.html" style="font-size: 20px;">Gráfico</a> 
         </div> 
      </div> 
     </div> 
     <img src="./logo1.jpeg" style="height: 100px; display: flex; justify-content: end;" alt=""> 
   </nav>
 
+
   <h3 style=" margin-top: 50px; margin-bottom: 20px; margin-left: 110px;">Informações:</h3>
 
   <div class="inicial">
-    <p id="connectionStatus">Verificando conexão...</p>
     <p id="locationDisplay">Obtendo localização...</p>
     <p id="weatherDisplay">Carregando clima...</p>
     <p id="weatherDetails"></p>
@@ -42,37 +43,80 @@
   <div class="cards gap-5">
     <div class="card mb-3" style="width: 410px;">
       <div class="row g-0">
-        <div class="col-md-4">
-          <img src="./sol.jpg" class="img-fluid rounded-start" alt="...">
+        <div class="col-md-">
+          <img src="./sol.jpg" class="img-fluid rounded-start rounded-end" alt="...">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-">
           <div class="card-body">
-            <h5 class="card-title">Ensolarado</h5>
+            <h4 class="card-title">Ensolarado</h4>
             <p class="card-text"><b>Máxima eficiência:</b> Painéis trackers captam a luz direta do sol ao longo do dia.</p>
           </div>
         </div>
       </div>
     </div><div class="card mb-3" style="width: 410px;">
       <div class="row g-0">
-        <div class="col-md-4">
-          <img src="./nuvem.png" class="img-fluid rounded-start" alt="...">
+        <div class="col-md-">
+          <img src="./nuvem.png" class="img-fluid rounded-start rounded-end" alt="...">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-">
           <div class="card-body">
-            <h5 class="card-title">Nublado</h5>
+            <h4 class="card-title">Nublado</h4>
             <p class="card-text"><b>Menor eficiência: </b> Captam luz solar difusa das nuvens, menos energia gerada.</p>
           </div>
         </div>
       </div>
     </div><div class="card mb-3" style="width: 410px;">
       <div class="row g-0">
-        <div class="col-md-4">
-          <img src="./chuva.jpg" class="img-fluid rounded-start" alt="...">
+        <div class="col-md-">
+          <img src="./chuva.jpg" class="img-fluid rounded-start rounded-end" alt="...">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-">
           <div class="card-body">
-            <h5 class="card-title">Chuvoso</h5>
+            <h4 class="card-title">Chuvoso</h4>
             <p class="card-text"><b>Eficiência reduzida:</b> Luz bloqueada, água nos painéis diminui ainda mais a captação.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <h3 style=" margin-top: 50px; margin-bottom: 25px; margin-left: 110px;">Como a chuva afeta a captação de energia solar</h3>
+
+  <div class="cards gap-5">
+    <div class="card mb-3" style="width: 400px;">
+      <div class="row g-0">
+        <div class="col-md-">
+          <img src="./limpo.jpg" class="img-fluid rounded-start rounded-end" alt="...">
+        </div>
+        <div class="col-md-">
+          <div class="card-body">
+            <h4 class="card-title">Sem chuva</h4>
+            <p class="card-text">A placa opera com <b>100% de eficiência</b>, recebendo luz solar direta sem obstruções climáticas.</p>
+          </div>
+        </div>
+      </div>
+    </div><div class="card mb-3" style="width: 400px;">
+      <div class="row g-0">
+        <div class="col-md-">
+          <img src="./leve.jpg" class="img-fluid rounded-start rounded-end" alt="...">
+        </div>
+        <div class="col-md-">
+          <div class="card-body">
+            <h4 class="card-title">Chuva leve</h4>
+            <p class="card-text"> A luz solar ainda alcança a placa, mas com <b>20% de redução na eficiência </b>devido às nuvens e gotas d'água.</p>
+          </div>
+        </div>
+      </div>
+    </div><div class="card mb-3" style="width: 400px;">
+      <div class="row g-0">
+        <div class="col-md-">
+          <img src="./intensa.jpg" class="img-fluid rounded-start rounded-end" alt="...">
+        </div>
+        <div class="col-md-">
+          <div class="card-body">
+            <h4 class="card-title">Chuva intensa</h4>
+            <p class="card-text"> A captação de luz solar <b>cai 50%</b>, pois nuvens espessas e chuva forte bloqueiam grande parte da radiação solar.</p>
           </div>
         </div>
       </div>
