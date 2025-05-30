@@ -1,18 +1,21 @@
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
 const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 
+// Serve arquivos estáticos da pasta atual
+app.use(express.static(__dirname));
+
+// Seu código de API abaixo
+
 let statusAtual = {
   status: 'Sem informação',
   data: new Date().toISOString()
 };
 
-// Rota POST para atualizar status
 app.post('/status', (req, res) => {
   const { status } = req.body;
   if (status) {
@@ -26,25 +29,15 @@ app.post('/status', (req, res) => {
   }
 });
 
-// Rota GET para retornar status atual
 app.get('/status', (req, res) => {
   res.json(statusAtual);
 });
 
-// Rota raiz
 app.get('/', (req, res) => {
-  res.send('Servidor rodando!');
-});
-
-// Middleware para tratar rotas não definidas
-app.use((req, res, next) => {
-  if (!req.route) {
-    res.status(404).send('Página não encontrada');
-  } else {
-    next();
-  }
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
+
