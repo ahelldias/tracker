@@ -25,9 +25,28 @@
   </nav>
 
 
+ 
+
     <div class="container-fluid center-content">
         <div class="gap-1 regt">
-            <h2 class="mt-4 mb-4">Novo registro!</h2>
+            <h2 class="mt-4 mb-2">Novo registro!</h2>
+    <div class="container-fluid center-content mb-2" style="display: flex; flex-direction: row; gap: 10px;">
+        <h4>Status da Chuva:</h4>
+        <h4 id="chuvaStatus" class="status" style="color: rgb(53, 140, 255); font-size: 25px;">Carregando...</h4>
+    </div> <script>
+  async function buscarStatusChuva() {
+    try {
+      const resposta = await fetch('http://localhost:3000/status');
+      const dados = await resposta.json();
+      console.log(dados);
+    } catch (erro) {
+      console.error('Erro ao buscar status:', erro);
+    }
+  }
+  window.onload = buscarStatusChuva;
+</script>
+
+    </script>
             <div class="input-group mb-4">
                 <span class="input-group-text">Data</span>
                 <input type="date" class="form-control" id="dateInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
@@ -36,6 +55,7 @@
                 <span class="input-group-text" >Horas</span>
                 <input type="number" class="form-control" id="hoursInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
             </div>
+            
             <div class="input-group mb-4">
                 <label class="input-group-text" for="rainInput">Choveu?</label>
                 <select class="form-select" id="rainInput" required>
@@ -57,8 +77,9 @@
             <button type="submit" class="btn btn-primary btn-m btn-center mt-3" id="submitButton" style="width: 200px;" onclick="submitData()">Enviar</button>
         </div>
     </div>
-
+   
 
     <script src="./main.js" defer></script>
+    <script src="./main2.js" defer></script>
 </body>
 </html>
